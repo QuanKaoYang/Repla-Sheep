@@ -18,34 +18,42 @@ Office.onReady(info => {
     // document.getElementById("app-body").style.display = "flex";
     document.getElementById("run").onclick = run;
     document.getElementById("repFile").onchange = replaceFromFile;
-    document.getElementById("replace").onclick = gotfile;
     document.getElementById("console").innerText = "onReady OK\n"
   }
 });
 
-function gotfile(){
-  document.getElementById("console").innerText += "OK got a file\n"
+function wl(log) {
+  document.getElementById("console").innerText += log + "\n";
 }
 
 export async function replaceFromFile(ev) {
   const fr = new FileReader;
   const repFile = ev.target.files[0];
+  const myAnnotator = new RegExp("^[0-9_/\[\\\]]+$");
+  // wl(repFile.name);
+  if (!repFile.name.endsWith("tsv") && !repFile.name.endsWith("csv")) {
+    wl(repFile.name)
+    wl("File extention incorrect")
+    return
+  }
   let counter = 0;
   fr.readAsText(repFile);
   fr.onload = () => {
     const repPairs = [];
-    let lines = fr.result.split("\n");
-    for (let line in lines) {
+    let lines = fr.result.replace(/\r?\n/g, "\n").split("\n");
+    for (let line of lines) {
       if (line !== "") {
-        repPairs.push(line.split("\t"));
+        const eachTerm = line.split("\t");
+        wl(eachTerm[0])
+        if (!myAnnotator.test(eachTerm[0])) {
+          repPairs.push(line.split("\t"));
+        }
       }
     }
     return Word.run(async context => {
       document.getElementById("console").innerText += "Now In word.run\n"
-      for (let repPair in repPairs) {
+      for (let repPair of repPairs) {
         counter++
-        document.getElementById("console").innerText += String(counter);
-        document.getElementById("console").innerText += repPair[0]
         // let searchResults = context.document.body.search(repPair[0], { matchCase: vc.matchCase, useWildcard: vc.useWildcard });
         let searchResults = context.document.body.search(repPair[0]);
         searchResults.load(["text", "font"]);
