@@ -15,15 +15,24 @@
 
 <body class="ms-font-m ms-welcome ms-Fabric">
     <main>
-    <p class="ms-font-l">Modify the source files, then click <b>Run</b>.</p>
+    <!-- <p class="ms-font-l">Modify the source files, then click <b>Run</b>.</p>
     <div role="button" id="run" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">
         <span class="ms-Button-label">Run</span>
+    </div> -->
+    <div id="file_division">
+        <label for="select_repfile" id="drop_zone">
+            （・ω・＠）Please give me a FILE (csv/tsv) to eat♪
+            <input type="file" style="display:none" id="select_repfile">
+        </label>
     </div>
-    <input id="repFile" type="file" />
-    <button id="replace" class="uk-button uk-button-default" uk-tooltip="Hello World">REPLACE</button>
+    <div id="direct_division">
+        <textarea id="reptext" rows="10" cols="70" placeholder="（・ω・＠） or Paste termbase from excel below, and click the REPLACE button★"></textarea>
+        <button id="from_textarea" class="uk-button-primary uk-button-large">（・ω・＠）REPLACE★</button>
+    </div>
+    <!-- <input id="repFile" type="file" /> -->
+    <!-- <button id="replace" class="uk-button uk-button-default" uk-tooltip="Hello World">REPLACE</button> -->
     </main>
-    <footer>
-        <p id="console">Reeeeeeplace!</p>
+    <footer id="console">
     </footer>
 </body>
 

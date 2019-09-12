@@ -78,3 +78,37 @@
 b {
     font-weight: bold;
 }
+
+footer{
+    /* overflow-wrap : break-word; */
+    word-wrap:break-word;
+    white-space: pre-wrap;
+    width: 100%;
+    background-color: #89c7de;
+    color: #fff;
+    text-align: center;
+    padding: 30px 0;
+    position: absolute;/*←絶対位置*/
+    bottom: 0; /*下に固定*/
+}
+
+#drop_zone{
+    display: block;
+    width: 80%;
+    background: bisque;
+    /* height: 200px; */
+    border: 1px dotted black;
+    border-radius: 1rem;
+    margin: auto;
+    margin-top: 2rem;
+    font-size: 2rem;
+}
+
+#file_division{
+    margin: 10px;
+}
+
+#direct_division{
+    text-align: center;
+    margin: 10px;
+}
