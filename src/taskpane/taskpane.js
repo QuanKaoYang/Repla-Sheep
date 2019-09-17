@@ -14,6 +14,12 @@ UIkit.use(Icons);
 
 Office.onReady(info => {
   if (info.host === Office.HostType.Word) {
+    document.getElementById("console").innerText = "(^^@)";
+    if (!Office.context.requirements.isSetSupported('WordApi', '1.1')) {
+      document.getElementById("console").innerText = "(TT@)";
+      document.getElementById("app").style.display = "none";
+      document.getElementById("non-app").style.display = "flex";
+    }
     // document.getElementById("sideload-msg").style.display = "none";
     // document.getElementById("app-body").style.display = "flex";
     // document.getElementById("run").onclick = run;
@@ -21,8 +27,6 @@ Office.onReady(info => {
     document.getElementById("drop_zone").ondragover = handleDragOver;
     document.getElementById("drop_zone").ondragenter = handleDragEnter;
     document.getElementById("drop_zone").ondrop = readFileByDrop;
-    document.getElementById("console").innerText = "（・ω・＠） \n"
-    // document.getElementById("use_clipboad").onclick = readFromClipboard;
     document.getElementById("from_textarea").onclick = readFromTextarea;
   }
 });
@@ -134,6 +138,7 @@ export async function readFromTextarea(ev) {
 }
 
 export async function executeReplace(repPairs) {
+  wlp("execute!")
   let counter = 0;
   return Word.run(async context => {
     wlp("run run★")
@@ -155,13 +160,14 @@ export async function executeReplace(repPairs) {
 }
 
 export async function run() {
+  wlp("MeMe, World");
   return Word.run(async context => {
     /**
      * Insert your Word code here
      */
 
     // insert a paragraph at the end of the document.
-    const paragraph = context.document.body.insertParagraph(vm, Word.InsertLocation.end);
+    const paragraph = context.document.body.insertParagraph("Hello, World", Word.InsertLocation.end);
 
     // change the paragraph color to blue.
     paragraph.font.color = "blue";
