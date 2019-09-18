@@ -1,0 +1,47 @@
+export async function readFromClipboard(ev) {
+  let cdata;
+  const myAnnotator = new RegExp("^[0-9_/\[\\\]]+$");
+  const repPairs = [];
+  if (window.clipboardData) {
+    cdata = window.clipboardData.getData("Text").replace(/\r?\n/g, "\n");
+  } else {
+    cdata = ev.clipboardData;
+  }
+  if (cdata == "") {
+    return;
+  }
+  const lines = cdata.split("\n");
+  for (let line of lines) {
+    if (line !== "") {
+      const eachTerm = line.split("\t");
+      if (eachTerm[0] !== "" && eachTerm[1] !== "") {
+        if (!myAnnotator.test(eachTerm[0])) {
+          repPairs.push(line.split("\t"));
+        }
+      }
+    }
+    repPairs.push(eachTerm);
+  }
+  wl("(^_^＠) YUMMY!");
+  executeReplace(repPairs);
+}
+
+export async function run() {
+  wlp("MeMe, World");
+  return Word.run(async context => {
+    /**
+     * Insert your Word code here
+     */
+
+    // insert a paragraph at the end of the document.
+    const paragraph = context.document.body.insertParagraph("Hello, World", Word.InsertLocation.end);
+
+    // change the paragraph color to blue.
+    paragraph.font.color = "blue";
+
+    await context.sync();
+  });
+}
+
+https://docs.microsoft.com/ja-jp/javascript/api/word/word.font?view=word-js-preview#highlightcolor
+Note: Only the default highlight colors are available in Office on Windows Desktop. These are "Yellow", "Lime", "Turquoise", "Pink", "Blue", "Red", "DarkBlue", "Teal", "Green", "Purple", "DarkRed", "Olive", "Gray", "LightGray", and "Black". When the add-in runs in Office on Windows Desktop, any other color is converted to the closest color when applied to the font.

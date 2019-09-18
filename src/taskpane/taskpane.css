@@ -9,78 +9,17 @@
      height: 100%;
      margin: 0;
      padding: 0;
+     font-family: Arial, Helvetica, sans-serif;
+     /* background-image: url("../../img/transheep_blue.png");
+     background-size: 50%;
+     background-position: bottom right;
+     background-color:rgba(red,green,blue,alpha);
+     background-repeat: no-repeat; */
  }
  
- ul {
-     margin: 0;
-     padding: 0;
- }
- 
- .ms-welcome__header {
-    padding: 20px;
-    padding-bottom: 30px;
-    padding-top: 100px;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: column;
-    flex-direction: column;
-    align-items: center;
- }
-
- .ms-welcome__main {
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: column;
-    flex-direction: column;
-    -webkit-flex-wrap: nowrap;
-    flex-wrap: nowrap;
-    -webkit-align-items: center;
-    align-items: center;
-    -webkit-flex: 1 0 0;
-    flex: 1 0 0;
-    padding: 10px 20px;
- }
- 
- .ms-welcome__main > h2 {
-     width: 100%;
-     text-align: center;
- }
- 
- .ms-welcome__features {
-     list-style-type: none;
-     margin-top: 20px;
- }
- 
- .ms-welcome__features.ms-List .ms-ListItem {
-     padding-bottom: 20px;
-     display: -webkit-flex;
-     display: flex;
- }
- 
- .ms-welcome__features.ms-List .ms-ListItem > .ms-Icon {
-     margin-right: 10px;
- }
- 
- .ms-welcome__action.ms-Button--hero {
-     margin-top: 30px;
- }
- 
-.ms-Button.ms-Button--hero .ms-Button-label {
-  color: #0078d7;
-}
-
-.ms-Button.ms-Button--hero:hover .ms-Button-label,
-.ms-Button.ms-Button--hero:focus .ms-Button-label{
-  color: #005a9e;
-  cursor: pointer;
-}
-
-b {
-    font-weight: bold;
-}
-
 footer{
     /* overflow-wrap : break-word; */
+    height: 10px;
     word-wrap:break-word;
     white-space: pre-wrap;
     width: 100%;
@@ -92,11 +31,18 @@ footer{
     bottom: 0; /*下に固定*/
 }
 
-#drop_zone{
+#app{
+    text-align: center;
+}
+
+#file-division{
+    margin: 10px;
+}
+
+#drop-zone{
     display: block;
     width: 80%;
     background: bisque;
-    /* height: 200px; */
     border: 1px dotted black;
     border-radius: 1rem;
     margin: auto;
@@ -104,11 +50,54 @@ footer{
     font-size: 2rem;
 }
 
-#file_division{
+#direct-division{
+    text-align: center;
     margin: 10px;
 }
 
-#direct_division{
+.direct-input textarea{
+    font-size: 1.1rem;
+    background: cornsilk;
+}
+
+.direct-input select{
+    font-size: 1.2rem;
+}
+
+.direct-input button {
+    padding: 10px;
+    margin: 5px;
+    background: bisque;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+#pref-division{
     text-align: center;
     margin: 10px;
+}
+
+.pref-table{
+    border: solid;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 1.1rem;
+}
+
+.pref-table td{
+    border: solid 1px;
+    border-collapse: collapse;
+    padding: 5px;
+}
+
+.prefs select {
+    font-size: 1rem; 
+}
+
+.prefs button {
+    padding: 10px;
+    margin: 5px;
+    background: bisque;
+    font-size: 1.1rem;
+    font-weight: bold;
 }

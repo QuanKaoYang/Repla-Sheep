@@ -10,36 +10,88 @@
     <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
     <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/9.6.1/css/fabric.min.css"/>
     <link href="taskpane.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="uikit.min.css">
+    <!-- <link rel="stylesheet" href="uikit.min.css"> -->
 </head>
 
-<body class="ms-font-m ms-welcome ms-Fabric">
-    <main id="app">
-    <!-- <p class="ms-font-l">Modify the source files, then click <b>Run</b>.</p>
-    <div role="button" id="run" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">
-        <span class="ms-Button-label">Run</span>
-    </div>
-    <div role="button" id="run2" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">
-        <span class="ms-Button-label">Run2</span>
-    </div> -->
-    <div id="file_division">
-        <label for="select_repfile" id="drop_zone">
-            （・ω・＠）Please give me a FILE (csv/tsv) to eat♪
-            <input type="file" style="display:none" id="select_repfile">
-        </label>
-    </div>
-    <div id="direct_division">
-        <textarea id="reptext" rows="10" cols="70" placeholder="（・ω・＠） or Paste termbase from excel below, and click the REPLACE button★"></textarea>
-        <button id="from_textarea" class="uk-button-primary uk-button-large">（・ω・＠）REPLACE★</button>
-    </div>
-    <!-- <input id="repFile" type="file" /> -->
-    <!-- <button id="replace" class="uk-button uk-button-default" uk-tooltip="Hello World">REPLACE</button> -->
+<body>
+    <main>
+        <div id="app" style="display: none">
+            <div id="file-division" class="file-drop">
+                <label for="select-repfile" id="drop-zone">
+                    （・ω・＠）Please give me a FILE (csv/tsv) to eat♪
+                    <input type="file" style="display:none" id="select-repfile">
+                </label>
+            </div>
+            <hr />
+            <div id="direct-division" class="direct-input">
+                <textarea id="reptext" rows="8" cols="40" placeholder="（・ω・＠） or Paste termbase from excel below, and click the REPLACE button★"></textarea>
+                <form>
+                <select id="use-previous">
+                    <option value="direct">-</option>
+                    <option value="pre1">Previous 1</option>
+                    <option value="pre2">Previous 2</option>
+                    <option value="pre3">Previous 3</option>
+                </select>
+                <button id="from-textarea">（・ω・＠）REPLACE★</button>
+                </form>
+            </div>
+            <hr />
+            <div id="pref-division" class="prefs">
+                <table class="pref-table">
+                    <caption>PREFERENCE</caption>
+                    <tr>
+                        <td>
+                            <label for="useHL">HIGHLIGHT</label>
+                        </td>
+                        <td>
+                            <form>
+                            <select id="use-HL" name="HL">
+                                <option value="null" selected>None</option>
+                                <option value="Yellow">Yellow</option>
+                                <option value="Turquoise">Turquoise</option>
+                                <option value="Green">Green</option>
+                                <option value="Pink">Pink</option>
+                            </select>
+                            </form>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="use-matchcase">MATCH CASE</label>
+                        </td>
+                        <td>
+                            <input type="checkbox" id="use-matchcase" value="matchCase" checked/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="use-wildcard">WILDCARD</label>
+                        </td>
+                        <td>
+                            <input type="checkbox" id="use-wildcard" value="wildCard"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="use-annotator">ANNOTATION</label>
+                        </td>
+                        <td>
+                            <input type="checkbox" id="use-annotator" value="annotator"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button id="resetPref">RESET</button>
+                        </td>
+                    </tr>        
+                </table>
+            </div>
+        </div>
+        <div id="non-app">
+            <p>Sorry, your Word Version is not supported... (T-T @)</p>
+        </div>
+        <!-- <div id="logs">logs here</div> -->
     </main>
-    <div id="non-app" style="display: none">
-        <p>Sorry, your Word Version is not supported... (T_T @)</p>
-    </div>
-    <footer id="console">
-    </footer>
+    <!-- <footer id="console"></footer> -->
 </body>
-
 </html>

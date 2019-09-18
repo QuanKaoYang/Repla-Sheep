@@ -1,0 +1,67 @@
+<!-- Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT License. -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Repla-Sheep</title>
+    <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
+    <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/9.6.1/css/fabric.min.css"/>
+    <link href="taskpane.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="uikit.min.css">
+</head>
+
+<body>
+    <main>
+        <section id="app" class="uk-section" style="display: none">
+            <div class="uk-container">
+                <ul class="uk-child-width-expand" uk-tab>
+                    <li class="tab-item"><a href="#">From FILE</a></li>
+                    <li class="tab-item"><a href="#">From TEXT</a></li>
+                    <li class="uk-active tab-item"><a href="#">PREFERENCE</a></li>
+                </ul>
+                <ul class="uk-switcher uk-margin" >
+                    <li class="uk-width-expand">
+                        <div id="file_division" class="uk-padding">
+                            <label for="select_repfile" id="drop_zone">
+                                （・ω・＠）Please give me a FILE (csv/tsv) to eat♪
+                                <input type="file" style="display:none" id="select_repfile">
+                            </label>
+                        </div>
+                    </li>
+                    <li class="uk-section-xsmall uk-background-default">
+                        <div id="direct_division" class="uk-padding">
+                            <textarea id="reptext" rows="8" cols="55" placeholder="（・ω・＠） or Paste termbase from excel below, and click the REPLACE button★"></textarea>
+                            <button id="from_textarea" class="uk-button-primary uk-button-large">（・ω・＠）REPLACE★</button>
+                        </div>
+                    </li>
+                    <!-- <li class="uk-child-width-auto"> -->
+                    <li>
+                        <div id="pref_division" class="uk-padding">
+                            <ul id="pref-items" style="list-style: none">
+                            <li>
+                                <label for="match-case">
+                                    <input type="checkbox" id="match-case">MATCH CASE</input>
+                                </label>
+                            </li>
+                            <li>
+                            <label for="use-wildcard">
+                                <input type="checkbox" id="use-wildcard">WILDCARD</input>
+                            </label>
+                            </li>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <section id="non-app">
+            <p>Sorry, your Word Version is not supported... (T_T @)</p>
+        </section>
+    </main>
+    <footer id="console"></footer>
+    
+</body>
+
+</html>
