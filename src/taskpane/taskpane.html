@@ -23,6 +23,7 @@
                     <input type="file" style="display:none" id="select-repfile">
                 </label>
             </div>
+            <!-- <button id="dialog-btn">dialog</button> -->
             <hr />
             <div id="direct-division" class="direct-input">
                 <textarea id="reptext" rows="5" cols="40" placeholder="（・ω・＠） or Paste termbase from excel below, and click the REPLACE button★"></textarea>
@@ -82,7 +83,7 @@
                         </td>
                     </tr>
                     <tr class="for-excel">
-                        <td rowspan="2">Excel</td>
+                        <td rowspan="3">Excel</td>
                         <td>
                             <label for="xl-scol">SOURCE COL</label>
                         </td>
@@ -96,6 +97,14 @@
                         </td>
                         <td>
                             <input type="text" id="xl-tcol" value="B" />
+                        </td>
+                    </tr>
+                    <tr class="for-excel">
+                        <td>
+                            <label for="xl-header">HEADER ROWs</label>
+                        </td>
+                        <td>
+                            <input type="text" id="xl-header" value="0" />
                         </td>
                     </tr>
                     <tr class="for-tbx">

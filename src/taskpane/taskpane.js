@@ -15,8 +15,8 @@ Office.onReady(info => {
     }
     document.getElementById("drop-zone").ondragover = handleDragOver;
     document.getElementById("drop-zone").ondragenter = handleDragEnter;
-    document.getElementById("drop-zone").ondrop = ev => readFileAndRep(ev);
-    document.getElementById("select-repfile").onchange = ev => readFileAndRep(ev);
+    document.getElementById("drop-zone").ondrop = ev => handleDrop(ev);
+    document.getElementById("select-repfile").onchange = ev => handleClick(ev);
     document.getElementById("from-textarea").onclick = ev => readFromTextarea(ev);
     document.getElementById("resetPref").onclick = claerPref;
     myPref = loadPref();
@@ -28,8 +28,10 @@ Office.onReady(info => {
     document.getElementById("use-previous").onchange = ev => callPrevious(ev);
     document.getElementById("xl-scol").onchange = ev => setPrefVal(ev, "scol");
     document.getElementById("xl-tcol").onchange = ev => setPrefVal(ev, "tcol");
+    document.getElementById("xl-header").onchange = ev => setPrefVal(ev, "xlhead");
     document.getElementById("tbx-slang").onchange = ev => setPrefVal(ev, "slang");
     document.getElementById("tbx-tlang").onchange = ev => setPrefVal(ev, "tlang");
+    document.getElementById("dialog-btn").onclick = openDialog;
     if (indev) {
       document.getElementById("console").style.display = "block";
       wlp("read finish");
@@ -46,6 +48,7 @@ function initialPref() {
       annotator: false,
       scol: "A",
       tcol: "B",
+      xlhead: "0",
       slang: "ja-jp-jp",
       tlang: "zh-cn",
       pre1 : "",
@@ -62,9 +65,9 @@ function setInitialPref(){
   document.getElementById("use-annotator").checked = myPref.annotator;
   document.getElementById("xl-scol").value = myPref.scol;
   document.getElementById("xl-tcol").value = myPref.tcol;
+  document.getElementById("xl-header").value = myPref.xlhead;
   document.getElementById("tbx-slang").value = myPref.slang;
   document.getElementById("tbx-tlang").value = myPref.tlang;
-  // document.getElementById("logs").innerText = myPref.logs;
 }
 
 function wlp(log) {
@@ -119,10 +122,19 @@ function handleDragOver(ev) {
   ev.preventDefault();
 }
 
-function readFileAndRep(ev) {
+function handleDrop(ev) {
   ev.stopPropagation();
   ev.preventDefault();
-  const repFile = ev.target.files[0]
+  readFileAndRep(ev.dataTransfer.files[0])
+}
+
+function handleClick(ev) {
+  ev.stopPropagation();
+  ev.preventDefault();
+  readFileAndRep(ev.target.files[0])
+}
+
+function readFileAndRep(repFile) {
   const extension = repFile.name.substr(repFile.name.length - 4, 4)
   switch (extension) {
     case ".csv":
@@ -136,7 +148,7 @@ function readFileAndRep(ev) {
     case "xlsx":
       const scol = myPref.scol.toUpperCase();
       const tcol = myPref.tcol.toUpperCase();
-      readXLSXFile(repFile, scol, tcol)
+      readXLSXFile(repFile, scol, tcol, Number(myPref.xlhead));
       break;
 
     case ".tbx":
@@ -172,7 +184,7 @@ async function readCTSVFile(repFile, delimiter) {
       }
     }
     setPrefLog(repPairs);
-    executeReplace(repPairs);
+    executeReplace(repPairs, repFile.name);
   }
 }
 
@@ -198,10 +210,10 @@ async function readFromTextarea(ev) {
       }
     }
   }
-  executeReplace(repPairs);
+  executeReplace(repPairs, "From TextArea");
 }
 
-async function readXLSXFile(xlsxFile, scol, tcol) {
+async function readXLSXFile(xlsxFile, scol, tcol, header) {
   const zip = new JSZip();
   const repPairs = [];
   const rangeColA = new RegExp("^" + scol + "[0-9]+$");
@@ -224,7 +236,12 @@ async function readXLSXFile(xlsxFile, scol, tcol) {
       inzip.folder("xl/worksheets/").file("sheet1.xml").async("string").then((xml) => {
         const wsx = (new DOMParser()).parseFromString(xml, "application/xml");
         const rowNodes = wsx.getElementsByTagName("row");
+        let counter = -1;
         for (let rowNode of rowNodes) {
+          counter++;
+          if (counter < header) {
+            continue;
+          }
           const cellNodes = rowNode.getElementsByTagName("c");
           let gotA = false;
           let gotB = false;
@@ -254,7 +271,7 @@ async function readXLSXFile(xlsxFile, scol, tcol) {
           texts += pair.join("\t") + "\n";
         }
         setPrefPre(texts);
-        executeReplace(repPairs);
+        executeReplace(repPairs, xlsxFile.name);
       })
     })
   })
@@ -297,61 +314,61 @@ async function readTBXFile(repFile, slang, tlang) {
       texts += pair.join("\t") + "\n";
     }
     setPrefPre(texts);
-    executeReplace(repPairs);
+    executeReplace(repPairs, repFile.name);
   }
 }
 
-async function executeReplace(repPairs) {
+async function executeReplace(repPairs, filename) {
   let sortedPairs = repPairs.sort((a, b) => {
     if (a[0].length > b[0].length) return -1;
     if (a[0].length < b[0].length) return 1;
     return 0;
   })
-  return Word.run(async context => {
-    for (let i = 0; i < sortedPairs.length; i++) {
-      let searchResults = context.document.body.search(sortedPairs[i][0], { matchCase: myPref.matchcase, useWildcard: myPref.wildcard });
-      searchResults.load("text");
-      await context.sync()
-      for (var j = 0; j < searchResults.items.length; j++) {
-        searchResults.items[j].insertText("[_" + String(i) + "_]", "Replace")
-      }
-    }
-    await context.sync()
-    for (let i = 0; i < sortedPairs.length; i++) {
-      let searchResults = context.document.body.search("[_" + String(i) + "_]", { matchCase: myPref.matchcase, useWildcard: myPref.wildcard });
-      searchResults.load(["text", "font"]);
-      await context.sync()
-      if (searchResults.items.length > 0) {
-        const afterReplace = myPref.annotator ? "<_" + String(i) + "_>" + sortedPairs[i][1] + "<_/_>" : sortedPairs[i][1];
-        const HLcolor = myPref.useHL === "null" ? null : myPref.useHL;
+  const repContents = {
+    filename: filename,
+    contents: sortedPairs
+  };
+  localStorage.setItem("repContents", JSON.stringify(repContents))
+  let dialog;
+  const replacing = new Promise(resolve => {
+    Office.context.ui.displayDialogAsync('https://localhost:3000/processing.html', { height: 20, width: 30 }, asyncResult => {
+    dialog = asyncResult.value;
+    Word.run(async context => {
+      for (let i = 0; i < sortedPairs.length; i++) {
+        let searchResults = context.document.body.search(sortedPairs[i][0], { matchCase: myPref.matchcase, useWildcard: myPref.wildcard });
+        searchResults.load("text");
+        await context.sync()
         for (var j = 0; j < searchResults.items.length; j++) {
-          searchResults.items[j].insertText(afterReplace, "Replace")
-          searchResults.items[j].font.highlightColor = HLcolor;
+          searchResults.items[j].insertText("[_" + String(i) + "_]", "Replace")
         }
       }
-    }
-    await context.sync()
+      await context.sync()
+      for (let i = 0; i < sortedPairs.length; i++) {
+        let searchResults = context.document.body.search("[_" + String(i) + "_]", { matchCase: myPref.matchcase, useWildcard: myPref.wildcard });
+        searchResults.load(["text", "font"]);
+        await context.sync()
+        if (searchResults.items.length > 0) {
+          const afterReplace = myPref.annotator ? "<_" + String(i) + "_>" + sortedPairs[i][1] + "<_/_>" : sortedPairs[i][1];
+          const HLcolor = myPref.useHL === "null" ? null : myPref.useHL;
+          for (var j = 0; j < searchResults.items.length; j++) {
+            searchResults.items[j].insertText(afterReplace, "Replace")
+            searchResults.items[j].font.highlightColor = HLcolor;
+          }
+        }
+      }
+      await context.sync();
+      resolve();
+      })
+    })
+  })
+  replacing.then(() => {
+    dialog.close();
+    setTimeout(() => {
+      Office.context.ui.displayDialogAsync('https://localhost:3000/finished.html', { height: 20, width: 30 })
+    }, 100);
   })
 }
 
 function callPrevious(ev){
   document.getElementById("reptext").value = myPref[ev.target.value];
-}
-
-export async function run(repPairs) {
-  let c = 0
-  let l = ""
-  for (let t of repPairs) {
-    l += String(c)
-    l += t[0]
-    c++
-    l += String(c)
-    l += t[1]
-    c++
-  }
-  return Word.run(async context => {
-    const paragraph = context.document.body.insertParagraph(l, Word.InsertLocation.end);
-    paragraph.font.color = "blue";
-    await context.sync();
-  });
 }

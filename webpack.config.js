@@ -52,15 +52,21 @@ module.exports = async (env, options) => {
           to: "taskpane.css",
           from: "./src/taskpane/taskpane.css"
         },
-        {
-          to: "uikit.min.css",
-          from: "./src/taskpane/uikit.min.css"
-        }
       ]),
       new HtmlWebpackPlugin({
         filename: "commands.html",
         template: "./src/commands/commands.html",
         chunks: ["polyfill", "commands"]
+      }),
+      new HtmlWebpackPlugin({
+        filename: "processing.html",
+        template: "./src/taskpane/processing.html",
+        chunks: ["polyfill", "processing"]
+      }),
+      new HtmlWebpackPlugin({
+        filename: "finished.html",
+        template: "./src/taskpane/finished.html",
+        chunks: ["polyfill", "processing"]
       })
     ],
     devServer: {
