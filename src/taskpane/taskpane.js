@@ -5,6 +5,8 @@
 
 var myPref;
 var indev = false
+var inlocal = true
+var dialogURL = indev? "https://localhost:3000/" : "https://794562.xyz/repla/"
 
 Office.onReady(info => {
   console.log("logs")
@@ -330,8 +332,10 @@ async function executeReplace(repPairs, filename) {
   };
   localStorage.setItem("repContents", JSON.stringify(repContents))
   let dialog;
+  const processingURL = dialogURL + "processing.html"
+  const finishURL = dialogURL + "finished.html"
   const replacing = new Promise(resolve => {
-    Office.context.ui.displayDialogAsync('https://localhost:3000/processing.html', { height: 20, width: 30 }, asyncResult => {
+    Office.context.ui.displayDialogAsync(processingURL, { height: 20, width: 30 }, asyncResult => {
     dialog = asyncResult.value;
     Word.run(async context => {
       for (let i = 0; i < sortedPairs.length; i++) {
@@ -364,7 +368,7 @@ async function executeReplace(repPairs, filename) {
   replacing.then(() => {
     dialog.close();
     setTimeout(() => {
-      Office.context.ui.displayDialogAsync('https://localhost:3000/finished.html', { height: 20, width: 30 })
+      Office.context.ui.displayDialogAsync(finishURL, { height: 20, width: 30 })
     }, 100);
   })
 }

@@ -18,23 +18,23 @@
         </thead>
         <tbody id="terms" style="border: solid"></tbody>
     </table>
-</body>
 <script>
-    window.onload = () => {
-        const repContents = JSON.parse(localStorage.getItem("repContents"));
+    // IE 11用にES2015以前の書き方を使う
+    window.onload = function() {
+        var repContents = JSON.parse(localStorage.getItem("repContents"));
         document.getElementById("filename").innerText = "File Name: " + repContents.filename;
-        const termTable = document.getElementById("terms")
-        for (let term of repContents.contents) {
-            const row = document.createElement("tr");
-            const st = document.createElement("td");
-            const tt = document.createElement("td");
-            st.textContent = term[0];
-            tt.textContent = term[1];
-            row.appendChild(st)
-            row.appendChild(tt)
-            termTable.appendChild(row)
+        var termTable = document.getElementById("terms");
+        for (var i = 0; i < repContents.contents.length; i++) {
+            var row = document.createElement("tr");
+            var st = document.createElement("td");
+            var tt = document.createElement("td");
+            st.textContent = repContents.contents[i][0];
+            tt.textContent = repContents.contents[i][1];
+            row.appendChild(st);
+            row.appendChild(tt);
+            termTable.appendChild(row);
         }
     }
 </script>
-
+</body>
 </html>
