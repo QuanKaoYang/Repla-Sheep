@@ -16,29 +16,42 @@
 
 <body>
     <main>
-        <div id="app" style="display: none">
-            <div id="file-division" class="file-drop">
-                <label for="select-repfile" id="drop-zone">
-                    （・ω・＠）Please give me a FILE (csv / tsv / xlsx / tbx) to eat♪
-                    <input type="file" style="display:none" id="select-repfile">
-                </label>
+        <div id="app" class="in-app" style="display: none">
+            <!-- タブ選択欄 -->
+            <div id="tab-group">
+                <ul id="tabs">
+                    <li><div class="in-tab" id="show-replace">REPLACE</div></li>
+                    <li><div class="in-tab" id="show-preference">PREFERENCE</div></li>
+                </ul>
             </div>
-            <!-- <button id="dialog-btn">dialog</button> -->
-            <hr />
-            <div id="direct-division" class="direct-input">
-                <textarea id="reptext" rows="5" cols="40" placeholder="（・ω・＠） or Paste termbase from excel below, and click the REPLACE button★"></textarea>
-                <form>
-                <select id="use-previous">
-                    <option value="direct">-</option>
-                    <option value="pre1">Previous 1</option>
-                    <option value="pre2">Previous 2</option>
-                    <option value="pre3">Previous 3</option>
-                </select>
-                <button id="from-textarea">（・ω・＠）REPLACE★</button>
-                </form>
+
+            <!-- 置換用のタブコンテンツ -->
+            <div id="replace-division">
+                <div id="file-section" class="file-drop">
+                    <label for="select-repfile" id="drop-zone">
+                        （・ω・＠）Please give me a FILE (csv / tsv / xlsx / tbx) to eat♪
+                        <input type="file" style="display:none" id="select-repfile">
+                    </label>
+                </div>
+                <hr />
+                <div id="direct-section" class="direct-input">
+                    <textarea id="reptext" rows="5" cols="40" placeholder="（・ω・＠） or Paste termbase from excel below, and click the REPLACE button★"></textarea>
+                    <form>
+                    <select id="use-previous">
+                        <option value="direct">-</option>
+                        <option value="pre1">Previous 1</option>
+                        <option value="pre2">Previous 2</option>
+                        <option value="pre3">Previous 3</option>
+                    </select>
+                    <button id="from-textarea">（・ω・＠）REPLACE★</button>
+                    </form>
+                </div>
+                <hr />
             </div>
-            <hr />
-            <div id="pref-division" class="prefs">
+            <!-- 置換用のコンテンツ ここまで -->
+
+            <!-- ここから設定タブコンテンツ -->
+            <div id="pref-division" class="prefs" style="display: none">
                 <table class="pref-table">
                     <caption>（・ω・＠）PREFERENCE</caption>
                     <tr class="for-word">
@@ -52,7 +65,7 @@
                                 <option value="null" selected>None</option>
                                 <option value="Yellow">Yellow</option>
                                 <option value="Turquoise">Turquoise</option>
-                                <option value="Green">Green</option>
+                                <option value="Lime">Lime</option>
                                 <option value="Pink">Pink</option>
                             </select>
                             </form>
@@ -131,7 +144,28 @@
                     </tr> 
                 </table>
             </div>
+            <!-- 設定タブコンテンツ ここまで-->
         </div>
+        <!-- Wordが対応していた場合のコンテンツ -->
+
+        <!-- 置換実行時のコンテンツ -->
+        <div id="replacing-division" class="in-app" style="display: none">
+            <h3 id="processing-mess">{{ Processing }}</h3>
+            <h4 id="processing-file">{{ Filename }}</h4>
+            <button id="replace-done" disabled>DONE</button>
+            <table id="term-table">
+                <thead>
+                    <tr>
+                        <th>SOURCE</th>
+                        <th>TARGET</th>
+                    </tr>
+                </thead>
+                <tbody id="term-bd" style="border: solid"></tbody>
+            </table>
+        </div>
+        <!-- 置換実行時のコンテンツ ここまで -->
+
+        <!-- Wordが対応していなかった場合に呼び出すコンテンツ -->
         <div id="non-app">
             <p>Sorry, your Word Version is not supported... (T-T @)</p>
         </div>
