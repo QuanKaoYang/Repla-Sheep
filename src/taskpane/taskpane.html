@@ -20,22 +20,25 @@
             <!-- タブ選択欄 -->
             <div id="tab-group">
                 <ul id="tabs">
-                    <li><div class="in-tab" id="show-replace">REPLACE</div></li>
-                    <li><div class="in-tab" id="show-preference">PREFERENCE</div></li>
+                    <li><div class="in-tab tab-active" id="show-replace">REPLACE</div></li>
+                    <li><div class="in-tab tab-inactive" id="show-preference">PREFERENCE</div></li>
                 </ul>
             </div>
 
             <!-- 置換用のタブコンテンツ -->
             <div id="replace-division">
                 <div id="file-section" class="file-drop">
-                    <label for="select-repfile" id="drop-zone">
-                        （・ω・＠）Please give me a FILE (csv / tsv / xlsx / tbx) to eat♪
+                    <h3>（・ω・＠）</h3>
+                    <h4>Please give me a FILE (csv / tsv / xlsx / tbx) to eat♪ <br />Click SELECT zone below, or just drop a file into it!</h4>
+                    <label for="select-repfile" id="drop-zone">SELECT
                         <input type="file" style="display:none" id="select-repfile">
                     </label>
                 </div>
                 <hr />
                 <div id="direct-section" class="direct-input">
-                    <textarea id="reptext" rows="5" cols="40" placeholder="（・ω・＠） or Paste termbase from excel below, and click the REPLACE button★"></textarea>
+                    <h3>（・ω・＠）</h3>
+                    <h4>You also can input terms with delimiter (tab or 2 colons"::"), <br />and click the REPLACE button★</h4>
+                    <textarea id="reptext" rows="5" cols="40" placeholder="input terms"></textarea>
                     <form>
                     <select id="use-previous">
                         <option value="direct">-</option>
@@ -52,8 +55,9 @@
 
             <!-- ここから設定タブコンテンツ -->
             <div id="pref-division" class="prefs" style="display: none">
+                <h3>（・ω・＠）</h3>
                 <table class="pref-table">
-                    <caption>（・ω・＠）PREFERENCE</caption>
+                    <caption>PREFERENCE</caption>
                     <tr class="for-word">
                         <td rowspan="4">Word</td>
                         <td>

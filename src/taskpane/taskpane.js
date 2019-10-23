@@ -147,6 +147,10 @@ function showReplace() {
   document.getElementById("pref-division").style.display = "none"
   document.getElementById("replacing-division").style.display = "none"
   document.getElementById("replace-division").style.display = "block"
+  document.getElementById("show-replace").classList.add("tab-active")
+  document.getElementById("show-replace").classList.remove("tab-inactive")
+  document.getElementById("show-preference").classList.add("tab-inactive")
+  document.getElementById("show-preference").classList.remove("tab-active")
 }
 
 // 環境設定ペインを呼び出す
@@ -154,6 +158,10 @@ function showPreference() {
   document.getElementById("replace-division").style.display = "none"
   document.getElementById("replacing-division").style.display = "none"
   document.getElementById("pref-division").style.display = "block"
+  document.getElementById("show-replace").classList.add("tab-inactive")
+  document.getElementById("show-replace").classList.remove("tab-active")
+  document.getElementById("show-preference").classList.add("tab-active")
+  document.getElementById("show-preference").classList.remove("tab-inactive")
 }
 
 // 置換実行中の画面を閉じる
