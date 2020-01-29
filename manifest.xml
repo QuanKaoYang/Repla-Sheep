@@ -6,17 +6,17 @@
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Repla-Sheep"/>
   <Description DefaultValue="Batch replace tool for translators"/>
-  <IconUrl DefaultValue="https://quankaoyang.github.io/Repla-sheep/assets/repla-32.png"/>
-  <HighResolutionIconUrl DefaultValue="https://quankaoyang.github.io/Repla-sheep/assets/repla-80.png"/>
+  <IconUrl DefaultValue="https://quankaoyang.github.io/Repla-Sheep/assets/repla-32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://quankaoyang.github.io/Repla-Sheep/assets/repla-80.png"/>
   <SupportUrl DefaultValue="https://sheeepy.jimdofree.com/"/>
   <AppDomains>
-    <AppDomain>https://quankaoyang.github.io/Repla-sheep/</AppDomain>
+    <AppDomain>https://quankaoyang.github.io/Repla-Sheep/</AppDomain>
   </AppDomains>
   <Hosts>
     <Host Name="Document"/>
   </Hosts>  
   <DefaultSettings>
-    <SourceLocation DefaultValue="https://quankaoyang.github.io/Repla-sheep/taskpane.html"/>
+    <SourceLocation DefaultValue="https://quankaoyang.github.io/Repla-Sheep/taskpane.html"/>
   </DefaultSettings>
   <Permissions>ReadWriteDocument</Permissions>
   <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
