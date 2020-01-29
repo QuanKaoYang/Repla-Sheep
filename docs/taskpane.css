@@ -1,0 +1,142 @@
+/* 
+ * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
+ * See LICENSE in the project root for license information.
+ */
+
+ html,
+ body {
+     width: 100%;
+     height: 90%;
+     margin: 0;
+     padding: 0;
+     font-family: Arial, Helvetica, sans-serif;
+ }
+ 
+footer{
+    height: 10px;
+    word-wrap:break-word;
+    white-space: pre-wrap;
+    width: 100%;
+    background-color: #89c7de;
+    color: #fff;
+    text-align: center;
+    padding: 30px 0;
+    position: absolute;/*←絶対位置*/
+    bottom: 0; /*下に固定*/
+}
+
+.in-app{
+    text-align: center;
+}
+
+#tab-group{
+    height: 30px;
+}
+
+#tabs{
+    list-style-type: none;
+}
+
+.tab-active{
+    background-color: darkcyan;
+}
+
+.tab-inactive{
+    background-color: #89c7de;
+}
+
+div.in-tab{
+    width: 50%;
+    text-align: center;
+    color: white;
+    float: left;
+}
+
+/* #rep-division{
+    transition-duration: 0.5s
+} */
+
+#file-section{
+    margin: 10px;
+}
+
+#drop-zone{
+    display: block;
+    width: 80%;
+    height: 5rem;
+    background: bisque;
+    border: 1px dotted black;
+    border-radius: 1rem;
+    margin: auto;
+    margin-top: 2rem;
+    font-size: 2rem;
+}
+
+#direct-section{
+    text-align: center;
+    margin: 10px;
+}
+
+.direct-input textarea{
+    font-size: 1.1rem;
+    background: cornsilk;
+}
+
+.direct-input select{
+    font-size: 1.2rem;
+}
+
+.direct-input button {
+    padding: 10px;
+    margin: 5px;
+    background: bisque;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+#pref-division{
+    text-align: center;
+    margin: 10px;
+    /* transition-duration: 0.5s */
+}
+
+.pref-table{
+    border: solid;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 1.1rem;
+}
+
+.pref-table caption {
+    font-size: 1.5rem;
+}
+
+.pref-table td{
+    border: solid 1px;
+    border-collapse: collapse;
+    padding: 5px;
+}
+
+.prefs select {
+    font-size: 1rem; 
+}
+
+.prefs button {
+    padding: 10px;
+    margin: 5px;
+    background: bisque;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.for-word{
+    background: dodgerblue;
+}
+
+.for-excel{
+    background: lightgreen
+}
+
+.for-tbx{
+    background: mediumorchid;
+}

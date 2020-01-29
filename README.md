@@ -1,32 +1,35 @@
-# Office-Addin-TaskPane-JS
+# Repla-Sheep 
+# Word Add-in  Batch Replacer
+## 概要
 
-This repository contains the source code used by the [Yo Office generator](https://github.com/OfficeDev/generator-office) when you create a new Office Add-in that appears in the task pane. You can also use this repository as a sample to base your own project from if you choose not to use the generator. 
+Word上で使用できるOffice Add-inです。
 
-## JavaScript
+ExcelやCSV、TBXといった用語集ファイルを、直接ドラッグアンドドロップでWordに適用することができます。
 
-This template is written using JavaScript. For the [TypeScript](http://www.typescriptlang.org/) version of this template, go to [Office-Addin-TaskPane](https://github.com/OfficeDev/Office-Addin-TaskPane).
+## 使い方　～基本編～
 
-## Debugging
+マニフェストファイル（manifest.xml）を配置します。
 
-This template supports debugging using any of the following techniques:
+詳細は[マイクロソフト公式](https://docs.microsoft.com/ja-jp/office/dev/add-ins/testing/create-a-network-shared-folder-catalog-for-task-pane-and-content-add-ins)を参照し、共有フォルダ内に配置して設定します（NAS等のファイルサーバーがあれば、その中に配置することもできます）。
 
-- [Use a browser's developer tools](https://docs.microsoft.com/office/dev/add-ins/testing/debug-add-ins-in-office-online)
-- [Attach a debugger from the task pane](https://docs.microsoft.com/office/dev/add-ins/testing/attach-debugger-from-task-pane)
-- [Use F12 developer tools on Windows 10](https://docs.microsoft.com/office/dev/add-ins/testing/debug-add-ins-using-f12-developer-tools-on-windows-10)
+Wordファイルを開き、ホームタグにあるRepla-Sheepのアイコンをクリックします。
 
-## Questions and comments
+すると一括置換用のペインが現れますので、一括置換に使用したいファイルをドロップしてください。
 
-We'd love to get your feedback about this sample. You can send your feedback to us in the *Issues* section of this repository.
+## 使い方　～応用編～
 
-Questions about Microsoft Office 365 development in general should be posted to [Stack Overflow](http://stackoverflow.com/questions/tagged/office-js+API).  If your question is about the Office JavaScript APIs, make sure it's tagged with  [office-js].
+1. 直接入力
+   真ん中のテキストボックスに、一括置換したい用語を直接入力することができます。
+   入力の際は ***原文1::訳文1 (改行) 原文2::訳文2 (改行) 原文3::訳文3 (改行) ...*** のように、用語をコロン2つで区切ってください。
+2. 履歴の利用
+   Repla-Sheepでは、一括置換を実行した履歴を最高３回まで保存しています。
+   テキストボックスの下にあるプルダウンから、何回前の履歴を使用するか選択してください。
+   選択した内容は、テキストボックス内に表示されます。
+   内容に問題がなければ、 **実行** ボタンを押して一括置換を実行してください。
 
-## Additional resources
+※履歴はユーザーのローカルストレージに保存されています。サーバー側では情報を一切集めていません。
 
-* [Office add-in documentation](https://docs.microsoft.com/office/dev/add-ins/overview/office-add-ins)
-* More Office Add-in samples at [OfficeDev on Github](https://github.com/officedev)
+## 使い方　～追加機能～
 
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information, see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
-
-## Copyright
-
-Copyright (c) 2019 Microsoft Corporation. All rights reserved.
+- Wordでの置換結果に蛍光マーカーを付けることができます。
+- 置換結果には、アノテーションタグをつけることができます。
